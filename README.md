@@ -1,23 +1,66 @@
-# FastAPI as Executable
-This Repository gives a brief idea of how you can package a FastAPI program as a standalone executable.
-To get started, fork this repository and add an endpoint-decorator to the `tutorial.py` file. 
+# Min/Max Waveform Analysis
+This Repository gives a brief idea of how analysis endpoints for the OmniProject shall work.
+The Min/Max application is designed for performing basic analysis on waveforms. 
+It offers endpoints to calculate the global minimum and maximum of a set of data points and provides version information and a debug endpoint.
 
-In order to get an executable, you need to run the `github` workflow, which is already included in the repository, and as such also in your fork.
-To run the workflow, you need to push a tag to the repo. 
-You may do that by first creating a tag on a certain commit and then push that:
-```
-user@machine ~/r/f/app (master)> git tag v0.1.5
-user@machine ~/r/f/app (master)> git push --tags
-Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
-To github.com:skunkforce/fastapi-exe-tutorial.git
- * [new tag]         v0.1.5 -> v0.1.5
-```
-The workflow will take the FastAPI program and use the tool `pyinstaller` in a github-action to create a release, containing a `.zip`.
-When the workflow has finished, download this release and unzip it into a directory of your choice. 
-Use the Windows-CMD to navigate into the chosen directory and run it by typing `.\tutorial.exe`.
-FastAPI will launch a server on your loopback-IP device and will claim port 8008. 
-If you'd like to change the port, or even expose your server into your local network, you'll have to change the line 
-https://github.com/skunkforce/fastapi-exe-tutorial/blob/d9ae8f1fb58cf5a669754861db1679ecb70997fa/app/tutorial.py#L12
-to a different port, respectively to the IP `0.0.0.0`, since `127.0.0.1` only exposes the port to your own loopback, making the service only available from the very device you are running it on.
+In order to understand how this repository creates executable releases, inspect [the repository this is forked from](https://github.com/skunkforce/fastapi-exe-tutorial/tree/master)!
 
-Have Fun!
+## Running the Application
+Once you downloaded a release and ran it from your commandline, the API will be available on `http://127.0.0.1:8484`.
+
+## API Endpoints
+1. Calculate Minimum (`/min/`)
+This endpoint calculates the global minimum value from a given set of y-values in a waveform.
+
+Usage:
+To use this endpoint, send a `GET` request with a `JSON` body containing x and y lists.
+
+Example with `curl`:
+
+```
+curl -X 'GET' 'http://127.0.0.1:8484/min/' \
+-H 'accept: application/json' \
+-H 'Content-Type: application/json' \
+-d '{"x": [0.1, 0.2, 0.3, 0.4], "y": [1.0, 3.5, -2.5, 4.0]}'
+```
+
+2. Calculate Maximum (`/max/`)
+This endpoint calculates the global maximum value from a given set of y-values in a waveform.
+
+Usage:
+Similar to the `/min/` endpoint, send a `GET` request with `JSON` data.
+
+Example with `curl`:
+
+```
+curl -X 'GET' 'http://127.0.0.1:8484/max/' \
+-H 'accept: application/json' \
+-H 'Content-Type: application/json' \
+-d '{"x": [0.1, 0.2, 0.3, 0.4], "y": [1.0, 3.5, -2.5, 4.0]}'
+```
+
+3. Version Information (`/version`)
+Provides version information of the application including the app version, commit hash, build date, and maintainer.
+
+Usage:
+Send a `GET` request to the endpoint:
+
+```
+curl -X 'GET' 'http://127.0.0.1:8484/version'
+```
+
+4. Debug - Convert to Text (`/to_txt/`)
+A debug endpoint that returns the request in a text format. Useful for debugging.
+
+Usage:
+Send a `POST` request with any `JSON` data:
+
+```
+curl -X 'POST' 'http://127.0.0.1:8484/to_txt/' \
+-H 'Content-Type: application/json' \
+-d '{"sample_key": "sample_value"}'
+```
+
+## Notes
+Ensure that lists x and y in the JSON payloads for `/min/` and `/max/` have the same length.
+This application is designed for demonstration purposes and might require modifications for production use.
