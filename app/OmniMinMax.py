@@ -3,6 +3,7 @@ from fastapi.responses import PlainTextResponse
 import uvicorn
 from pydantic import BaseModel, Field, validator
 from typing import List
+import json
 
 APP_VERSION = "default"
 COMMIT_HASH = "default"
