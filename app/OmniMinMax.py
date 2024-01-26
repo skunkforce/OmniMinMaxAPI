@@ -28,14 +28,14 @@ class Waveform(BaseModel):
 
 app = FastAPI()
 
-@app.get("/min/")
+@app.post("/min/")
 async def calculate_min(input: Waveform):
     try:    
         return {"global minimum": input.getMin()}
     except Exception as e:
         return {"Error": str(e)}
 
-@app.get("/max/")
+@app.post("/max/")
 async def calculate_max(input: Waveform):
     try:    
         return {"global maximum": input.getMax()}

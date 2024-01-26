@@ -18,7 +18,7 @@ To use this endpoint, send a `GET` request with a `JSON` body containing x and y
 Example with `curl`:
 
 ```
-curl -X 'GET' 'http://127.0.0.1:8484/min/' \
+curl -X 'POST' 'http://127.0.0.1:8484/min/' \
 -H 'accept: application/json' \
 -H 'Content-Type: application/json' \
 -d '{"x": [0.1, 0.2, 0.3, 0.4], "y": [1.0, 3.5, -2.5, 4.0]}'
@@ -33,7 +33,7 @@ Similar to the `/min/` endpoint, send a `GET` request with `JSON` data.
 Example with `curl`:
 
 ```
-curl -X 'GET' 'http://127.0.0.1:8484/max/' \
+curl -X 'POST' 'http://127.0.0.1:8484/max/' \
 -H 'accept: application/json' \
 -H 'Content-Type: application/json' \
 -d '{"x": [0.1, 0.2, 0.3, 0.4], "y": [1.0, 3.5, -2.5, 4.0]}'
