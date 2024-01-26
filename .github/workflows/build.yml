@@ -24,10 +24,10 @@ jobs:
           echo "Build Date: $BUILD_DATE"
           echo "Commit Hash: $COMMIT_HASH"
 
-          sed -i "s/APP_VERSION = \".*\"/APP_VERSION = \"$TAG_NAME\"/" app/tutorial.py
-          sed -i "s/MAINTAINER = \".*\"/MAINTAINER = \"$MAINTAINER_EMAIL\"/" app/tutorial.py
-          sed -i "s/BUILD_DATE = \".*\"/BUILD_DATE = \"$BUILD_DATE\"/" app/tutorial.py
-          sed -i "s/COMMIT_HASH = \".*\"/COMMIT_HASH = \"$COMMIT_HASH\"/" app/tutorial.py
+          sed -i "s/APP_VERSION = \".*\"/APP_VERSION = \"$TAG_NAME\"/" app/OmniMinMax.py
+          sed -i "s/MAINTAINER = \".*\"/MAINTAINER = \"$MAINTAINER_EMAIL\"/" app/OmniMinMax.py
+          sed -i "s/BUILD_DATE = \".*\"/BUILD_DATE = \"$BUILD_DATE\"/" app/OmniMinMax.py
+          sed -i "s/COMMIT_HASH = \".*\"/COMMIT_HASH = \"$COMMIT_HASH\"/" app/OmniMinMax.py
         shell: bash
 
       - name: Set up Python
@@ -42,7 +42,7 @@ jobs:
         run: pip install -r app/requirements.txt
 
       - name: Build executable
-        run: pyinstaller --name tutorial app/tutorial.py 
+        run: pyinstaller --name OmniMinMax app/OmniMinMax.py 
 
       - name: Archive dist folder
         run: Compress-Archive -Path dist/* -DestinationPath dist.zip
